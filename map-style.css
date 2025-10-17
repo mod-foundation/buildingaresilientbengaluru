@@ -1,0 +1,128 @@
+/* map-style.css */
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+#background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    background-color:#2827f7;
+    z-index: 0;
+}
+
+#map {
+    position: absolute;
+    top: 30px;
+    bottom: 30px;
+    left: 30px;
+    width: 60%;
+    background-color: rgba(200, 200, 200, 0.3);
+    border: 1px solid #333;
+    border-radius: 20px;
+    z-index: 1;
+    padding: 10px;
+}
+
+#menu-container {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    z-index: 10;
+}
+
+#menu-container sl-icon {
+    font-size: 24px;
+    color: #0066ff;
+    background-color: transparent;
+}
+
+#menu-container sl-details::part(summary-icon) {
+    display: none;
+}
+
+sl-details {
+    width: auto;
+}
+
+sl-details[open] {
+    width: 200px;
+}
+
+sl-details::part(summary) {
+    background-color: transparent;
+    border-radius: 4px;
+    font-weight: 600;
+}
+
+sl-details::part(base) {
+    background-color: rgba(255,255,255,0.8);
+    padding: 0px;
+    border-radius: 15px;
+    overflow: visible;
+}
+
+sl-details::part(body) {
+    padding: 15px;
+    overflow: visible;
+    }
+
+.layer-item {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.layer-item:last-child {
+    margin-bottom: 0;
+}
+
+.layer-item sl-checkbox {
+    flex: 1;
+}
+
+.layer-item sl-checkbox {
+    flex: 1;
+    --checkbox-size: 20px;
+}
+
+.layer-item sl-checkbox::part(control) {
+    border-color: #ccc;
+    border-radius: 5px;
+}
+
+.layer-item sl-checkbox[checked]::part(control) {
+    background-color: #306ef8;
+    border-color: yellow;
+}
+
+#dem-opacity-container {
+    font-family: 'Open Sans', sans-serif;
+    color: #333;
+    }
+    
+    #dem-opacity-container label {
+    font-size: 14px;
+    color: #333;
+    }
+
+#panel {
+        position: absolute;
+        top: 30px;
+        bottom: 30px;
+        right: 30px;
+        width: 31.5%;
+        color: #000; /* or white depending on background */
+        background-color: #fff;
+        border: 1px solid #333;
+        border-radius: 20px;
+        padding: 20px;
+        z-index: 1;
+        overflow-y: auto; /* optional if content scrolls */
+    }
