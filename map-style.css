@@ -126,3 +126,33 @@ sl-details::part(body) {
         z-index: 1;
         overflow-y: auto; /* optional if content scrolls */
     }
+
+/* Style the details container */
+#panel sl-details {
+    --sl-details-border-radius: 8px;   /* rounded corners */
+    --sl-details-box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* subtle shadow */
+    --sl-details-border-color: #ccc;   /* border color */
+    --sl-details-header-background: #f5f5f5; /* header bg color */
+    --sl-details-header-color: #333;   /* header text color */
+    --sl-details-header-font-size: 14px;
+    --sl-details-header-font-weight: 600;
+    --sl-details-header-padding: 10px 15px;
+    --sl-details-content-padding: 10px 15px; /* content padding */
+    width: 100%;                  /* width of the panel */
+    margin-bottom: 10px;
+  }
+  
+  /* Optional: change the chevron icon color */
+  #panel sl-details::part(toggle) {
+    color: #555;
+  }
+  
+  /* Style the inner content area */
+  #panel sl-details::part(content) {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13px;
+    color: #444;
+    line-height: 1.4;
+    background-color: #fff;
+  }
+  
