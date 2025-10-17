@@ -253,29 +253,36 @@ map.on('load', () => {
           });
     }
 
-    interactiveLayers.forEach(layerId => { // Loop through all layers that should have interactive clicks
+    interactiveLayers.forEach(layerId => {
         const clickLayer = lineLayers.includes(layerId) ? layerId + '-interaction' : layerId;
-        // For line layers, use the thicker invisible "interaction" layer to make clicking easier
-        // For other layers, use the original layer itself
     
-        if (!map.getLayer(clickLayer)) return; // Skip if the layer does not exist on the map
+        if (!map.getLayer(clickLayer)) return;
     
-        map.on('click', clickLayer, (e) => { // Add click event listener to the layer
+        map.on('click', clickLayer, (e) => {
             const features = map.queryRenderedFeatures(e.point, { layers: [clickLayer] });
-            // Get all features under the clicked point within this layer
-            if (!features.length) return; // If no features found, exit
+            if (!features.length) return;
     
-            const feature = features[0]; // Take the first feature found (you could loop for multiple)
-            showFeatureAttributes(feature); // Call a function to display the feature's properties in a panel
+            const feature = features[0];
+    
+            // Create a Mapbox popup at the click location
+            new mapboxgl.Popup({ 
+                closeButton: true,  // optional: shows a close button
+                closeOnClick: true, // closes when clicking outside
+                offset: [0, -10]    // offset so it doesn't cover the point
+            })
+            .setLngLat(e.lngLat)   // use clicked location
+            .setHTML(
+                Object.entries(feature.properties)
+                      .map(([key, value]) => `<strong>${key}:</strong> ${value}`)
+                      .join('<br>')
+            )
+            .addTo(map);
         });
     
         map.on('mouseenter', clickLayer, () => map.getCanvas().style.cursor = 'pointer');
-        // Change cursor to pointer when hovering over the layer to indicate interactivity
-    
         map.on('mouseleave', clickLayer, () => map.getCanvas().style.cursor = '');
-        // Reset cursor to default when leaving the layer
     });
-
+    
 });
 
 // 1) define ordered hierarchy (top to bottom)
@@ -378,20 +385,3 @@ const alwaysVisible = [
 
     });
 });
-
-
-function showFeatureAttributes(feature) {
-    const panel = document.getElementById('panel');
-
-    // Clear any existing content
-    panel.innerHTML = '';
-
-    // Loop through all properties
-    for (const key in feature.properties) {
-        const value = feature.properties[key];
-        const div = document.createElement('div');
-        div.style.marginBottom = '8px';
-        div.innerHTML = `<strong>${key}:</strong> ${value}`;
-        panel.appendChild(div);
-    }
-}
